@@ -28,9 +28,8 @@ export default function CarsSection() {
   });
 
   return (
-    <div className="py-24 bg-[#0A0A0A]">
+    <div className="py-24 bg-[var(--c-bg-page)] transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Section header */}
         <div className="text-center mb-14">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -38,11 +37,10 @@ export default function CarsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-['Syne'] font-extrabold text-4xl sm:text-5xl text-white mb-4">
+            <h2 className="font-['Syne'] font-extrabold text-4xl sm:text-5xl text-[var(--c-text-primary)] mb-4">
               {t("cars.title")}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t("cars.subtitle")}</p>
-            {/* Animated underline */}
+            <p className="text-[var(--c-text-muted)] text-lg max-w-2xl mx-auto">{t("cars.subtitle")}</p>
             <motion.div
               className="h-0.5 bg-gradient-to-r from-transparent via-[#C8A96E] to-transparent mt-6 mx-auto"
               initial={{ width: 0 }}
@@ -59,16 +57,18 @@ export default function CarsSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
           {filters.map((f) => (
             <motion.button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-colors ${filter === f.key ? "text-[#0A0A0A]" : "text-gray-400 hover:text-white border border-white/10"}`}
+              className={`relative px-5 py-2.5 rounded-full text-sm font-semibold transition-colors ${
+                filter === f.key
+                  ? "text-[#0A0A0A]"
+                  : "text-[var(--c-text-muted)] hover:text-[var(--c-text-primary)] border border-[var(--c-border-subtle)]"
+              }`}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              data-testid={`filter-${f.key}`}
             >
               {filter === f.key && (
                 <motion.span
@@ -82,7 +82,6 @@ export default function CarsSection() {
           ))}
         </motion.div>
 
-        {/* Cars grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={filter}

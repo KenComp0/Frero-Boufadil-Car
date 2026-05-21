@@ -45,10 +45,8 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
       viewport={{ once: true, margin: "-60px 0px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="bg-[#141414] border border-[#C8A96E]/10 rounded-2xl overflow-hidden group cursor-default"
-      data-testid={`car-card-${car.id}`}
+      className="bg-[var(--c-bg-card)] border border-[var(--c-border-gold)] rounded-2xl overflow-hidden group cursor-default transition-colors duration-300"
     >
-      {/* Image */}
       <div className="relative overflow-hidden h-48">
         <motion.img
           src={car.image}
@@ -58,9 +56,7 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
           transition={{ duration: 0.4 }}
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#141414]/80 via-transparent to-transparent" />
-
-        {/* Availability badge */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
         <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
           <motion.div
             className="w-2 h-2 rounded-full bg-green-400"
@@ -69,8 +65,6 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
           />
           <span className="text-xs text-green-400 font-medium">{t("cars.available")}</span>
         </div>
-
-        {/* Type badge */}
         {car.badge && (
           <div className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full ${badgeColors[car.badge] || "bg-white/10 text-white"}`}>
             {car.badge}
@@ -78,25 +72,22 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
         )}
       </div>
 
-      {/* Content */}
       <div className="p-5">
-        {/* Title & rating */}
         <div className="flex items-start justify-between mb-3">
           <div>
-            <h3 className="font-['Syne'] font-bold text-lg text-white leading-tight">
+            <h3 className="font-['Syne'] font-bold text-lg text-[var(--c-text-primary)] leading-tight">
               {car.brand} {car.model}
             </h3>
-            <p className="text-gray-500 text-sm">{car.year} · {car.type}</p>
+            <p className="text-[var(--c-text-muted)] text-sm">{car.year} · {car.type}</p>
           </div>
           <div className="flex items-center gap-1 shrink-0 ml-2">
             <FaStar className="text-[#C8A96E] w-3.5 h-3.5" />
-            <span className="text-white text-sm font-semibold">{car.rating}</span>
-            <span className="text-gray-500 text-xs">({car.reviews})</span>
+            <span className="text-[var(--c-text-primary)] text-sm font-semibold">{car.rating}</span>
+            <span className="text-[var(--c-text-muted)] text-xs">({car.reviews})</span>
           </div>
         </div>
 
-        {/* Icons row */}
-        <div className="flex items-center gap-4 mb-4 text-gray-400 text-xs">
+        <div className="flex items-center gap-4 mb-4 text-[var(--c-text-muted)] text-xs">
           <span className="flex items-center gap-1.5">
             <FaUser className="w-3 h-3 text-[#C8A96E]" />
             {car.seats} {t("cars.seats")}
@@ -111,10 +102,9 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
           </span>
         </div>
 
-        {/* Feature tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {visibleFeatures.map((f) => (
-            <span key={f} className="text-xs px-2.5 py-1 bg-[#1E1E1E] text-gray-400 rounded-full border border-white/5">
+            <span key={f} className="text-xs px-2.5 py-1 bg-[var(--c-bg-input)] text-[var(--c-text-muted)] rounded-full border border-[var(--c-border-subtle)]">
               {f}
             </span>
           ))}
@@ -125,18 +115,16 @@ export default function CarCard({ car, onReserve, index }: CarCardProps) {
           )}
         </div>
 
-        {/* Price & CTA */}
-        <div className="flex items-center justify-between pt-4 border-t border-white/5">
+        <div className="flex items-center justify-between pt-4 border-t border-[var(--c-border-subtle)]">
           <div>
             <span className="font-['Syne'] font-extrabold text-2xl text-[#C8A96E]">{car.pricePerDay}</span>
-            <span className="text-gray-500 text-sm ml-1">{t("cars.perDay")}</span>
+            <span className="text-[var(--c-text-muted)] text-sm ml-1">{t("cars.perDay")}</span>
           </div>
           <motion.button
             onClick={() => onReserve(car)}
             className="px-5 py-2.5 bg-[#C8A96E] hover:bg-[#d4b87c] text-[#0A0A0A] rounded-xl font-bold text-sm transition-colors"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            data-testid={`reserve-car-${car.id}`}
           >
             {t("cars.reserve")}
           </motion.button>
