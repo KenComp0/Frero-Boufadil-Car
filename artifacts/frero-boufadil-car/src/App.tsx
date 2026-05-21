@@ -1,4 +1,5 @@
 import "./i18n";
+import { Route, Switch } from "wouter";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -8,8 +9,9 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Admin from "@/pages/admin";
 
-function AppInner() {
+function HomePage() {
   return (
     <div className="min-h-screen bg-[var(--c-bg-page)] text-[var(--c-text-primary)] overflow-x-hidden transition-colors duration-300">
       <Navbar />
@@ -29,7 +31,11 @@ function AppInner() {
 export default function App() {
   return (
     <ThemeProvider>
-      <AppInner />
+      <Switch>
+        <Route path="/admin" component={Admin} />
+        <Route path="/admin/:rest*" component={Admin} />
+        <Route><HomePage /></Route>
+      </Switch>
     </ThemeProvider>
   );
 }

@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { FaCar, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCar, FaPhone, FaEnvelope, FaMapMarkerAlt, FaLock } from "react-icons/fa";
+import { useLocation } from "wouter";
 
 export default function Footer() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -73,6 +75,14 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <button className="text-[var(--c-text-muted)] hover:text-[#C8A96E] text-sm transition-colors">{t("footer.privacy")}</button>
             <button className="text-[var(--c-text-muted)] hover:text-[#C8A96E] text-sm transition-colors">{t("footer.terms")}</button>
+            <motion.button
+              onClick={() => setLocation("/admin")}
+              className="text-[var(--c-text-muted)] hover:text-[#C8A96E] text-sm transition-colors flex items-center gap-1"
+              whileHover={{ scale: 1.05 }}
+            >
+              <FaLock className="w-3 h-3" />
+              Admin
+            </motion.button>
           </div>
         </div>
       </div>

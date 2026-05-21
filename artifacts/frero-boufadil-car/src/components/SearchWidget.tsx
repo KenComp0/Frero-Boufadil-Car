@@ -36,7 +36,7 @@ export default function SearchWidget({ compact = false }: SearchWidgetProps) {
             <FaCalendarAlt className="text-[#C8A96E] w-3.5 h-3.5 shrink-0" />
             <DatePicker
               selected={startDate}
-              onChange={(d) => setStartDate(d)}
+              onChange={(d: Date | null) => setStartDate(d)}
               placeholderText="Départ"
               className="bg-transparent text-gray-400 text-xs w-full focus:outline-none cursor-pointer"
               minDate={new Date()}
@@ -46,7 +46,7 @@ export default function SearchWidget({ compact = false }: SearchWidgetProps) {
             <FaCalendarAlt className="text-[#C8A96E] w-3.5 h-3.5 shrink-0" />
             <DatePicker
               selected={endDate}
-              onChange={(d) => setEndDate(d)}
+              onChange={(d: Date | null) => setEndDate(d)}
               placeholderText="Retour"
               className="bg-transparent text-gray-400 text-xs w-full focus:outline-none cursor-pointer"
               minDate={startDate ?? new Date()}
@@ -91,7 +91,7 @@ export default function SearchWidget({ compact = false }: SearchWidgetProps) {
             </label>
             <DatePicker
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              onChange={(date: Date | null) => setStartDate(date)}
               selectsStart
               startDate={startDate ?? undefined}
               endDate={endDate ?? undefined}
@@ -108,7 +108,7 @@ export default function SearchWidget({ compact = false }: SearchWidgetProps) {
             </label>
             <DatePicker
               selected={endDate}
-              onChange={(date) => setEndDate(date)}
+              onChange={(date: Date | null) => setEndDate(date)}
               selectsEnd
               startDate={startDate ?? undefined}
               endDate={endDate ?? undefined}

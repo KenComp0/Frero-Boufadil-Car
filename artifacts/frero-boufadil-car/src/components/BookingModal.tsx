@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaTimes, FaWhatsapp, FaCalendarAlt } from "react-icons/fa";
-import { Car } from "./CarCard";
+import type { Car } from "./CarCard";
 
 interface BookingModalProps {
   car: Car;
@@ -16,6 +16,8 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
   const [form, setForm] = useState({ name: "", phone: "", email: "", notes: "" });
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+
+  const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || "212616877717";
 
   const days = startDate && endDate
     ? Math.max(1, Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)))
@@ -29,7 +31,7 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
     const msg = encodeURIComponent(
       `Je voudrais réserver ${car.brand} ${car.model} ${car.year} du ${formatDate(startDate)} au ${formatDate(endDate)} — Nom: ${form.name} — Tél: ${form.phone}${form.notes ? ` — Notes: ${form.notes}` : ""} — Total: ${total} MAD`
     );
-    window.open(`https://wa.me/212616877717?text=${msg}`, "_blank");
+    window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
   };
 
   const inputCls = "w-full bg-[var(--c-bg-input)] border border-[var(--c-border-gold)] rounded-xl px-4 py-3 text-sm text-[var(--c-text-primary)] placeholder-[var(--c-text-muted)] focus:outline-none focus:border-[#C8A96E]/50 transition-colors";
@@ -66,7 +68,7 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
         </div>
 
         <div className="flex items-center gap-4 p-5 border-b border-[var(--c-border-gold)]">
-          <img src={car.image} alt={`${car.brand} ${car.model}`} className="w-24 h-16 object-cover rounded-xl" />
+          <img src={car.images[0]} alt={`${car.brand} ${car.model}`} className="w-24 h-16 object-cover rounded-xl" />
           <div>
             <p className="font-['Syne'] font-bold text-[var(--c-text-primary)]">{car.brand} {car.model} {car.year}</p>
             <p className="text-[#C8A96E] font-bold">
@@ -97,13 +99,13 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
               <label className="text-xs text-[#C8A96E] font-semibold uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                 <FaCalendarAlt className="w-3 h-3" />{t("modal.startDate")}
               </label>
-              <DatePicker selected={startDate} onChange={d => setStartDate(d)} selectsStart startDate={startDate ?? undefined} endDate={endDate ?? undefined} minDate={new Date()} placeholderText="jj/mm/aaaa" className={inputCls} />
+              <DatePicker selected={startDate} onChange={(d: Date | null) => setStartDate(d)} selectsStart startDate={startDate ?? undefined} endDate={endDate ?? undefined} minDate={new Date()} placeholderText="jj/mm/aaaa" className={inputCls} />
             </div>
             <div>
               <label className="text-xs text-[#C8A96E] font-semibold uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                 <FaCalendarAlt className="w-3 h-3" />{t("modal.endDate")}
               </label>
-              <DatePicker selected={endDate} onChange={d => setEndDate(d)} selectsEnd startDate={startDate ?? undefined} endDate={endDate ?? undefined} minDate={startDate ?? new Date()} placeholderText="jj/mm/aaaa" className={inputCls} />
+              <DatePicker selected={endDate} onChange={(d: Date | null) => setEndDate(d)} selectsEnd startDate={startDate ?? undefined} endDate={endDate ?? undefined} minDate={startDate ?? new Date()} placeholderText="jj/mm/aaaa" className={inputCls} />
             </div>
           </div>
 

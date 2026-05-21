@@ -1,0 +1,9 @@
+[build]
+  command = "pnpm --filter @workspace/frero-boufadil-car run build"
+  publish = "artifacts/frero-boufadil-car/dist/public"
+  base = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
