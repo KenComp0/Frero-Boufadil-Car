@@ -118,10 +118,14 @@ export default function Hero() {
         {/* Card content: car hero image + search widget */}
         <div className="relative w-full h-full">
           <img
-            src="https://images.unsplash.com/photo-1617531653332-bd46c16f7d19?w=1400&q=85"
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80"
             alt="Premium car fleet"
             className="w-full h-full object-cover object-center"
             draggable={false}
+            onError={(e) => {
+              (e.target as HTMLImageElement).src =
+                "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1400&q=80";
+            }}
           />
           {/* Gradient overlay for readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
