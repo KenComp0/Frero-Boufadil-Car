@@ -14,14 +14,14 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    return (localStorage.getItem("fbc-theme") as Theme) ?? "dark";
+    return (localStorage.getItem("fbc-theme-v2") as Theme) ?? "light";
   });
 
   useEffect(() => {
     const html = document.documentElement;
     html.classList.remove("dark", "light");
     html.classList.add(theme);
-    localStorage.setItem("fbc-theme", theme);
+    localStorage.setItem("fbc-theme-v2", theme);
   }, [theme]);
 
   const toggle = () => setTheme(t => (t === "dark" ? "light" : "dark"));
