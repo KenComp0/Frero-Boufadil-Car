@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Frero Boufadil Car"
+version = "1.0.0"
+id = "artifacts/frero-boufadil-car"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23477
+
+[services.development]
+run = "pnpm --filter @workspace/frero-boufadil-car run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/frero-boufadil-car", "run", "build" ]
+publicDir = "artifacts/frero-boufadil-car/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23477"
+BASE_PATH = "/"

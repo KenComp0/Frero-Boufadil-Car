@@ -1,0 +1,326 @@
+Build a premium car rental agency website for "Frero Boufadil Car" using React + Vite + TypeScript + Framer Motion + Tailwind CSS.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 AGENCY INFO
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Name: Frero Boufadil Car
+Tagline: "Location de voitures professionnelle"
+Location: Aéroport Mohammed V, Casablanca, Maroc
+Phone: +212 616 877 717
+WhatsApp: +212 616 877 717
+Email: boufadilcar@gmail.com
+Hours: Daily 7:00 AM – 11:00 PM | 24h Airport Service
+Google Maps Embed: https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.091882895623!2d-7.580436023901809!3d33.36866715351481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda63b0013ceb059%3A0x9bce92a9867c08b1!2sFrero%20Boufadil%20car%20rental!5e0!3m2!1sen!2sma!4v1779321347747!5m2!1sen!2sma
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🌍 LANGUAGES (i18n)
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Support 3 languages with a language switcher (globe icon in navbar):
+- 🇫🇷 Français (DEFAULT — load first)
+- 🇬🇧 English
+- 🇲🇦 العربية (Arabic — RTL layout when active, use dir="rtl" on <html>)
+
+Store language preference in localStorage. Use i18next + react-i18next for translations.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🎨 DESIGN SYSTEM
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Style: Modern luxury car rental — clean, bold, premium feel
+Color palette:
+  - Primary: #C8A96E (gold/champagne)
+  - Dark BG: #0A0A0A
+  - Card BG: #141414
+  - Surface: #1E1E1E
+  - Text primary: #FFFFFF
+  - Text muted: #9CA3AF
+  - Accent: #C8A96E
+
+Typography:
+  - Headings: "Syne" (Google Fonts) — bold, modern
+  - Body: "Inter" (Google Fonts) — clean, readable
+  - Arabic: "Cairo" (Google Fonts)
+
+Design language:
+  - Dark theme with gold accents
+  - Glassmorphism cards (backdrop-filter: blur)
+  - Smooth gradient overlays
+  - Subtle grain texture on hero
+  - Rounded corners (rounded-2xl)
+  - Micro-interactions on every hover/click
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+📦 TECH STACK
+━━━━━━━━━━━━━━━━━━━━━━━━━
+- React 18 + Vite + TypeScript
+- Tailwind CSS (dark mode class strategy)
+- Framer Motion (ALL animations — no CSS transitions)
+- i18next + react-i18next (translations)
+- react-icons (icons)
+- react-datepicker (date pickers)
+- Use Unsplash source URLs for car images:
+  https://source.unsplash.com/800x500/?[car-model]-car
+  (e.g. ?hyundai-tucson-car, ?dacia-logan-car)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🚗 CAR FLEET DATA
+━━━━━━━━━━━━━━━━━━━━━━━━━
+const cars = [
+  {
+    id: 1,
+    brand: "Hyundai",
+    model: "Tucson",
+    year: 2024,
+    type: "SUV",
+    transmission: "automatic",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 450,
+    rating: 4.8,
+    reviews: 312,
+    features: ["Climatisation auto", 'Écran tactile 8"', "Caméra arrière", "GPS", "Bluetooth", "USB"],
+    available: true,
+    badge: "Populaire",
+    image: "https://source.unsplash.com/800x500/?hyundai-tucson"
+  },
+  {
+    id: 2,
+    brand: "Hyundai",
+    model: "Accent",
+    year: 2024,
+    type: "Berline",
+    transmission: "manual",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 250,
+    rating: 4.5,
+    reviews: 456,
+    features: ["Climatisation", "Vitres électriques", "Radio", "ABS", "Airbag"],
+    available: true,
+    badge: null,
+    image: "https://source.unsplash.com/800x500/?hyundai-accent"
+  },
+  {
+    id: 3,
+    brand: "Dacia",
+    model: "Logan",
+    year: 2024,
+    type: "Berline",
+    transmission: "manual",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 200,
+    rating: 4.4,
+    reviews: 678,
+    features: ["Climatisation", "Vitres électriques", "Radio", "ABS"],
+    available: true,
+    badge: "Économique",
+    image: "https://source.unsplash.com/800x500/?dacia-logan"
+  },
+  {
+    id: 4,
+    brand: "Dacia",
+    model: "Logan",
+    year: 2024,
+    type: "Berline",
+    transmission: "automatic",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 230,
+    rating: 4.5,
+    reviews: 523,
+    features: ["Climatisation", "Vitres électriques", "Écran tactile", "ABS"],
+    available: true,
+    badge: null,
+    image: "https://source.unsplash.com/800x500/?dacia-logan-auto"
+  },
+  {
+    id: 5,
+    brand: "Dacia",
+    model: "Sandero",
+    year: 2024,
+    type: "Berline",
+    transmission: "manual",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 220,
+    rating: 4.6,
+    reviews: 445,
+    features: ["Climatisation", "Vitres électriques", "Écran média", "ABS"],
+    available: true,
+    badge: null,
+    image: "https://source.unsplash.com/800x500/?dacia-sandero"
+  },
+  {
+    id: 6,
+    brand: "Dacia",
+    model: "Sandero",
+    year: 2024,
+    type: "Berline",
+    transmission: "automatic",
+    fuel: "petrol",
+    seats: 5,
+    pricePerDay: 250,
+    rating: 4.7,
+    reviews: 389,
+    features: ["Climatisation", "Vitres électriques", "Grand écran", "ABS", "Bluetooth"],
+    available: true,
+    badge: "Nouveau",
+    image: "https://source.unsplash.com/800x500/?dacia-sandero-stepway"
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+📄 PAGES & SECTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 1. NAVBAR (sticky, blur backdrop)
+- Logo left: car icon + "Frero Boufadil Car" in gold
+- Nav links: Accueil | Voitures | À propos | Contact
+- Right: Language switcher (FR/EN/AR flags) + WhatsApp CTA button (green, with icon)
+- On scroll: navbar shrinks with smooth Framer Motion animation
+- Mobile: hamburger menu with slide-down drawer (Framer Motion AnimatePresence)
+
+## 2. HERO SECTION
+- Full-screen dark background with diagonal gold gradient overlay + subtle noise texture
+- Animated headline (word-by-word stagger animation with Framer Motion)
+- Subheadline with fade-in delay
+- Stats row animated with countUp effect: 50+ voitures | 5000+ clients | 24/7 support | 10+ ans
+- Search/booking widget card (glassmorphism):
+  - Location dropdown (Aéroport Mohammed V par défaut)
+  - Date de prise en charge (date picker)
+  - Date de retour (date picker)
+  - "Rechercher une voiture" button in gold
+  - Animate card entrance from below with spring
+
+## 3. CARS SECTION
+- Section title with underline animation on scroll
+- Filter bar: All | Berline | SUV | Automatique | Manuelle
+  - Animated active indicator (Framer Motion layoutId)
+- Car grid (3 cols desktop, 2 tablet, 1 mobile)
+- Each CARD:
+  - Car image with hover zoom (scale 1.05)
+  - Available badge (green pulse dot)
+  - Optional colored badge (Populaire/Économique/Nouveau)
+  - Brand + Model + Year
+  - Star rating + review count
+  - Features icons row (seats, transmission, fuel)
+  - Feature tags (max 3 visible + "+N more")
+  - Price: XXX MAD / jour
+  - "Réserver" button → opens booking modal
+  - Card entrance: staggered fade-up on scroll (useInView)
+
+## 4. HOW IT WORKS
+- 3-step horizontal timeline (desktop) / vertical (mobile)
+  Step 1: 🚗 Choisissez votre voiture
+  Step 2: 📅 Choisissez les dates
+  Step 3: 🎉 Récupérez et profitez
+- Each step animates in sequence on scroll
+
+## 5. WHY CHOOSE US
+- 6 feature cards in 3x2 grid with icons:
+  - Vaste gamme de véhicules
+  - Réservation facile et gratuite
+  - Assurance complète
+  - Support 24/7
+  - Livraison gratuite
+  - Prix compétitifs
+- Cards animate with stagger on scroll
+
+## 6. TESTIMONIALS
+- Horizontally scrollable cards (or auto-rotating carousel with Framer Motion)
+- 3 reviews:
+  - Karim Benaissa — Casablanca — ⭐⭐⭐⭐⭐
+  - Fatima Zahra — Marrakech — ⭐⭐⭐⭐⭐
+  - Yassine Mansouri — Rabat — ⭐⭐⭐⭐⭐
+- Bottom stats: 4.8/5 Google | 10,000+ clients | 98% satisfaction
+
+## 7. CONTACT SECTION
+- Two columns: contact form (left) + map + info (right)
+- Contact form fields: Nom | Téléphone | Email | Message | Submit button
+- Info: address, phone (clickable tel:), email (clickable mailto:), hours
+- Google Maps iframe embed (use the URL provided above)
+- WhatsApp floating button (bottom-right corner, always visible, pulsing animation)
+
+## 8. FOOTER
+- Logo + short description
+- Quick links column
+- Car types column
+- Contact info column
+- Bottom bar: © 2024 Frero Boufadil Car | Privacy | Terms
+- Subtle gold top border
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🪟 BOOKING MODAL
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Triggered by "Réserver" on any car card.
+- Framer Motion: scale + fade entrance, backdrop blur overlay
+- Show: car name, image, price/day
+- Fields: Nom complet | Téléphone | Email | Date début | Date fin | Notes
+- Calculate total: (days × pricePerDay) shown live
+- Submit button: "Confirmer via WhatsApp" → opens
+  https://wa.me/212616877717?text=Je+voudrais+réserver+[car]+du+[start]+au+[end]
+- Close button top-right with AnimatePresence exit
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+✨ FRAMER MOTION USAGE
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Use Framer Motion for ALL animations:
+- Page load: hero text stagger (staggerChildren: 0.15)
+- Scroll-triggered: useInView + variants (hidden → visible)
+- Cards: staggered children with y: 40 → 0, opacity: 0 → 1
+- Navbar: height + blur on scroll with useScroll + useTransform
+- Filter active state: layoutId="activeFilter" shared layout
+- Modal: scale(0.9) → scale(1) + opacity with AnimatePresence
+- WhatsApp button: infinite pulse scale animation
+- Stats counter: animate numbers 0 → final value on inView
+- Hover states: whileHover={{ scale: 1.02, y: -4 }} on cards
+- Tap feedback: whileTap={{ scale: 0.97 }} on buttons
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 TRANSLATIONS STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Create /src/i18n/fr.json, en.json, ar.json
+Key sections: nav, hero, search, cars, howItWorks, whyUs, testimonials, contact, footer, modal
+Arabic JSON must include all RTL-sensitive labels.
+When Arabic is active: set document dir="rtl", flip flex directions, right-align text.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+📁 PROJECT STRUCTURE
+━━━━━━━━━━━━━━━━━━━━━━━━━
+src/
+  components/
+    Navbar.tsx
+    Hero.tsx
+    SearchWidget.tsx
+    CarsSection.tsx
+    CarCard.tsx
+    BookingModal.tsx
+    HowItWorks.tsx
+    WhyUs.tsx
+    Testimonials.tsx
+    Contact.tsx
+    Footer.tsx
+    WhatsAppButton.tsx
+  data/
+    cars.ts
+  i18n/
+    index.ts
+    fr.json
+    en.json
+    ar.json
+  hooks/
+    useScrollAnimation.ts
+  App.tsx
+  main.tsx
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+⚙️ SETUP INSTRUCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━
+npm create vite@latest frero-boufadil-car -- --template react-ts
+cd frero-boufadil-car
+npm install framer-motion tailwindcss postcss autoprefixer i18next react-i18next react-icons react-datepicker
+npx tailwindcss init -p
+
+tailwind.config.js: enable darkMode: 'class', add Google Fonts via index.html <link>
+
+Make it fully responsive. Mobile-first. No placeholder lorem ipsum — use real translated content throughout.
