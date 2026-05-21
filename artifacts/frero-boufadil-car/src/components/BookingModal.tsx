@@ -76,7 +76,7 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
         </div>
 
         <div className="p-5 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-[#C8A96E] font-semibold uppercase tracking-wider block mb-1.5">{t("modal.fullName")}</label>
               <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})} className={inputCls} placeholder="Mohammed Alami" />
@@ -92,7 +92,7 @@ export default function BookingModal({ car, onClose }: BookingModalProps) {
             <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} className={inputCls} placeholder="vous@email.com" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-[#C8A96E] font-semibold uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                 <FaCalendarAlt className="w-3 h-3" />{t("modal.startDate")}

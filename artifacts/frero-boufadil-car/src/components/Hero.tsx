@@ -63,7 +63,7 @@ export default function Hero() {
             }}
           >
             <span
-              className={`block font-['Syne'] font-extrabold leading-none text-5xl sm:text-6xl md:text-7xl ${
+              className={`block font-['Syne'] font-extrabold leading-none text-[2.6rem] sm:text-6xl md:text-7xl ${
                 i === 2 ? "text-[#C8A96E]" : "text-[var(--c-text-primary)]"
               }`}
             >

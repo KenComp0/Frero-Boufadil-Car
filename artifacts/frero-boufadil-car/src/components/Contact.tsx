@@ -48,7 +48,7 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
           >
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs text-[#C8A96E] font-semibold uppercase tracking-wider block mb-1.5">Nom</label>
                   <input type="text" value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder={t("contact.namePlaceholder")} className={inputCls} />
