@@ -117,15 +117,22 @@ export default function Admin() {
     try {
       const urls: string[] = [];
       const imgBBKey = import.meta.env.VITE_IMGBB_API_KEY;
+      const imgBBAlbum = import.meta.env.VITE_IMGBB_ALBUM || "";
       if (!imgBBKey) { setError("VITE_IMGBB_API_KEY non configurée"); setUploading(false); return; }
       for (const file of files) {
         const fd = new FormData();
         fd.append("image", file);
-        const res = await fetch(`https://api.imgbb.com/1/upload?key=${imgBBKey}`, { method: "POST", body: fd });
+        if (imgBBAlbum) fd.append("album", imgBBAlbum);
+        const url = `https://api.imgbb.com/1/upload?key=${imgBBKey}`;
+        const res = await fetch(url, { method: "POST", body: fd });
         const data = await res.json();
-        if (data.data?.url) urls.push(data.data.url);
+        if (data.data?.url) {
+          urls.push(data.data.url);
+        } else {
+          setError(data.error?.message || "Échec upload ImgBB");
+        }
       }
-      setNewImageUrls((prev) => [...prev, ...urls]);
+      if (urls.length) setNewImageUrls((prev) => [...prev, ...urls]);
     } catch {
       setError("Erreur lors de l'upload des images");
     }
