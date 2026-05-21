@@ -13,26 +13,29 @@ export const ContainerScroll = ({
   const { scrollYProgress } = useScroll({
     target: containerRef,
   });
-  const [isMobile, setIsMobile] = React.useState(false);
+
+  const [isMobile, setIsMobile] = React.useState(() =>
+    typeof window !== "undefined" ? window.innerWidth <= 768 : false
+  );
 
   React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const scaleDimensions = () => {
-    return isMobile ? [0.7, 0.9] : [1.05, 1];
-  };
+  const rotateDesktop = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const rotateMobile  = useTransform(scrollYProgress, [0, 1], [8, 0]);
+  const rotate = isMobile ? rotateMobile : rotateDesktop;
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], scaleDimensions());
-  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const scaleDesktop = useTransform(scrollYProgress, [0, 1], [1.05, 1]);
+  const scaleMobile  = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
+  const scale = isMobile ? scaleMobile : scaleDesktop;
+
+  const translateDesktop = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const translateMobile  = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const translate = isMobile ? translateMobile : translateDesktop;
 
   return (
     <div
@@ -42,7 +45,7 @@ export const ContainerScroll = ({
     >
       <div
         className="py-10 md:py-40 w-full relative"
-        style={{ perspective: "1000px" }}
+        style={{ perspective: isMobile ? "600px" : "1000px" }}
       >
         <Header translate={translate} titleComponent={titleComponent} />
         <Card rotate={rotate} translate={translate} scale={scale}>
@@ -53,7 +56,7 @@ export const ContainerScroll = ({
   );
 };
 
-export const Header = ({ translate, titleComponent }: any) => {
+export const Header = ({ translate, titleComponent }: { translate: MotionValue<number>; titleComponent: React.ReactNode }) => {
   return (
     <motion.div
       style={{ translateY: translate }}
