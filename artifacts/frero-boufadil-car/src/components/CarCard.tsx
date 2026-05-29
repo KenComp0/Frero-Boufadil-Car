@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { FaStar, FaUser, FaCog, FaGasPump, FaWhatsapp, FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -36,6 +36,7 @@ const badgeColors: Record<string, string> = {
 export default function CarCard({ car, index }: CarCardProps) {
   const { t } = useTranslation();
   const [imgIndex, setImgIndex] = useState(0);
+  const touchStartX = useRef(0);
   const maxVisible = 3;
   const visibleFeatures = car.features.slice(0, maxVisible);
   const extraCount = car.features.length - maxVisible;
@@ -47,6 +48,19 @@ export default function CarCard({ car, index }: CarCardProps) {
       `Bonjour, je suis intéressé par ${car.brand} ${car.model} ${car.year} (${car.type}, ${car.transmission}, ${car.pricePerDay} MAD/jour). Pouvez-vous me donner plus d'informations ?`
     );
     window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, "_blank");
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (car.images.length <= 1) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) {
+      if (delta > 0) setImgIndex((i) => (i === 0 ? car.images.length - 1 : i - 1));
+      else setImgIndex((i) => (i === car.images.length - 1 ? 0 : i + 1));
+    }
   };
 
   const prevImage = (e: React.MouseEvent) => {
@@ -65,9 +79,9 @@ export default function CarCard({ car, index }: CarCardProps) {
       viewport={{ once: true, margin: "-60px 0px" }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="bg-[var(--c-bg-card)] border border-[var(--c-border-gold)] rounded-2xl overflow-hidden group cursor-default transition-colors duration-300"
+      className="bg-[var(--c-bg-card)] border border-[var(--c-border-gold)] rounded-2xl overflow-hidden transition-colors duration-300"
     >
-      <div className="relative overflow-hidden h-48">
+      <div className="relative overflow-hidden h-48 touch-pan-y" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <AnimatePresence mode="wait">
           <motion.img
             key={imgIndex}
@@ -84,10 +98,10 @@ export default function CarCard({ car, index }: CarCardProps) {
 
         {car.images.length > 1 && (
           <>
-            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full opacity-60 hover:opacity-100 transition-opacity">
               <FaChevronLeft className="w-3 h-3" />
             </button>
-            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full opacity-60 hover:opacity-100 transition-opacity">
               <FaChevronRight className="w-3 h-3" />
             </button>
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex gap-1">
